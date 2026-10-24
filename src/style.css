@@ -76,6 +76,10 @@ body {
   color: var(--ink);
   font: 16px/1.45 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   -webkit-tap-highlight-color: transparent;
+  /* Feel like an app: no double-tap zoom, no rubber-band scrolling. */
+  touch-action: manipulation;
+  overscroll-behavior: none;
+  -webkit-text-size-adjust: 100%;
 }
 
 h1,
@@ -214,6 +218,7 @@ h1 {
   touch-action: none;
   user-select: none;
   -webkit-user-select: none;
+  -webkit-touch-callout: none;
   box-shadow: var(--card-shadow);
   background: var(--line);
 }
@@ -645,6 +650,50 @@ dialog form {
   to {
     transform: translate(var(--dx), 110vh) rotate(var(--rot));
   }
+}
+
+/* "Add to Home Screen" hint for iPhone Safari, which has no install prompt. */
+.install {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--panel);
+  border-radius: 16px;
+  padding: 10px 12px;
+  box-shadow: var(--card-shadow);
+  animation: rise 0.4s ease-out;
+}
+
+.install img {
+  border-radius: 10px;
+  flex: none;
+}
+
+.install p {
+  margin: 0;
+  font-size: 0.9rem;
+  flex: 1;
+}
+
+.install svg {
+  width: 18px;
+  height: 18px;
+  vertical-align: -3px;
+  fill: none;
+  stroke: #0a84ff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.install .close {
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+  font-size: 1.4rem;
+  line-height: 1;
+  padding: 4px 8px;
+  color: var(--muted);
 }
 
 [hidden] {

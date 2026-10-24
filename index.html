@@ -5,11 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#f8efdf" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#141a24" media="(prefers-color-scheme: dark)" />
+    <meta name="description" content="A daily logic puzzle about trees, sunlight and picnic blankets." />
     <title>Shade</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><path d='M18 24h4l1 12h-6z' fill='%238a5a3c'/><circle cx='13' cy='19' r='8' fill='%232f7d3a'/><circle cx='27' cy='19' r='8' fill='%232f7d3a'/><circle cx='20' cy='13' r='10' fill='%2345a04f'/></svg>" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <!-- Home-screen app on iPhone: full screen, content runs under the status bar. -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Shade" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   </head>
   <body>
     <main class="app">
@@ -74,6 +79,16 @@
           Rules
         </button>
       </div>
+
+      <aside class="install" id="install" hidden>
+        <img src="./apple-touch-icon.png" alt="" width="44" height="44" />
+        <p>
+          <b>Get the app.</b> Tap
+          <svg viewBox="0 0 24 24" aria-label="Share"><path d="M12 3v12" /><path d="m7 8 5-5 5 5" /><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7" /></svg>
+          then <b>Add to Home Screen</b>.
+        </p>
+        <button id="install-close" class="close" aria-label="Dismiss">×</button>
+      </aside>
     </main>
 
     <div class="fx" id="fx" aria-hidden="true"></div>

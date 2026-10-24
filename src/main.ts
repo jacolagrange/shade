@@ -1,3 +1,5 @@
+import '@fontsource/fraunces/latin-600.css';
+import '@fontsource/fraunces/latin-700.css';
 import './style.css';
 import { evaluate, shadowTable, type Puzzle, type Sun } from './core/board';
 import { dailyPuzzle, dateKey } from './core/daily';
@@ -496,4 +498,28 @@ if (import.meta.env.DEV && location.hash.startsWith('#reveal')) {
 if (!load('shade:seen-rules')) {
   $<HTMLDialogElement>('rules').showModal();
   store('shade:seen-rules', 1);
+}
+
+// An installed app can sit in the background overnight; pick up the new daily on return.
+let openedOn = dateKey(new Date());
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden || dateKey(new Date()) === openedOn) return;
+  openedOn = dateKey(new Date());
+  if (mode === 'daily') openDaily();
+});
+
+const standalone = matchMedia('(display-mode: standalone)').matches || (navigator as { standalone?: boolean }).standalone === true;
+const iOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+if (iOS && !standalone && !load('shade:install-dismissed')) {
+  $('install').hidden = false;
+  $('install-close').addEventListener('click', () => {
+    $('install').hidden = true;
+    store('shade:install-dismissed', 1);
+  });
+}
+
+if ('serviceWorker' in navigator && import.meta.env.PROD) {
+  navigator.serviceWorker.register('./sw.js').catch(() => {
+    // Offline support is a bonus; the game works without it.
+  });
 }

@@ -20,4 +20,6 @@ npm test
 npm run build    # static site in dist/
 ```
 
+Shade is an installable web app (PWA): on iPhone, open it in Safari, tap Share, then Add to Home Screen. A service worker (`src/sw.js`, filled in at build time by `vite.config.ts`) precaches everything, so it works offline.
+
 Puzzles are generated in the browser from the date, so everyone gets the same daily board with no server. `src/core` holds the engine (shadows, solver, generator); `src/main.ts` is the UI. In dev, `#reveal=k` pre-places the first k solution trees.
