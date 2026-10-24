@@ -1,0 +1,25 @@
+{
+  "name": "shade",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "tsc && vite build",
+    "preview": "vite preview --host",
+    "test": "vitest run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacolagrange/shade.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jacolagrange/shade/issues"
+  },
+  "homepage": "https://github.com/jacolagrange/shade#readme",
+  "devDependencies": {
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5",
+    "vitest": "^3.2.4"
+  },
+  "private": "true",
+  "type": "module"
+}

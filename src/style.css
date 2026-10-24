@@ -1,0 +1,310 @@
+:root {
+  --bg: #f6f1e7;
+  --panel: #fffdf8;
+  --ink: #2b2a27;
+  --muted: #7a756b;
+  --line: #3a3833;
+  --thin: rgba(58, 56, 51, 0.22);
+  --shade: rgba(28, 36, 64, 0.38);
+  --tree: #2e7d32;
+  --trunk: #795548;
+  --bad: #d32f2f;
+  --sun: #f5a623;
+  --accent: #2e7d32;
+  --r0: #f4b8b0;
+  --r1: #f7d58b;
+  --r2: #b9e0a5;
+  --r3: #a8d4f0;
+  --r4: #d3baf0;
+  --r5: #f6c29b;
+  --r6: #9fdcd0;
+  --r7: #e8b6d6;
+  --r8: #c9cdd6;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #16181d;
+    --panel: #20232a;
+    --ink: #ece8df;
+    --muted: #9a958b;
+    --line: #0b0c0f;
+    --thin: rgba(0, 0, 0, 0.3);
+    --shade: rgba(0, 0, 0, 0.5);
+    --tree: #66bb6a;
+    --trunk: #a1887f;
+    --bad: #ff6b6b;
+    --accent: #66bb6a;
+    --r0: #8a4f49;
+    --r1: #8a733a;
+    --r2: #4f7a40;
+    --r3: #3f6683;
+    --r4: #6a5288;
+    --r5: #8d5d3d;
+    --r6: #357a6d;
+    --r7: #84507a;
+    --r8: #5a5f6b;
+    color-scheme: dark;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 16px/1.4 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+select {
+  font: inherit;
+  color: inherit;
+  background: var(--panel);
+  border: 1px solid var(--thin);
+  border-radius: 10px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+button.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+
+.app {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: max(16px, env(safe-area-inset-top)) 16px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.timer {
+  font-variant-numeric: tabular-nums;
+  font-size: 1.2rem;
+  color: var(--muted);
+}
+
+.tabs {
+  display: flex;
+  gap: 6px;
+  background: var(--panel);
+  border-radius: 12px;
+  padding: 4px;
+  border: 1px solid var(--thin);
+}
+
+.tabs button {
+  flex: 1;
+  border: 0;
+  background: transparent;
+}
+
+.tabs button[aria-selected='true'] {
+  background: var(--bg);
+  font-weight: 600;
+}
+
+.practice-bar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.practice-bar label {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.practice-bar .primary {
+  margin-left: auto;
+}
+
+/* The board sits inside a margin that holds the sun icons at its corners. */
+.board-wrap {
+  position: relative;
+  padding: 26px;
+}
+
+.board {
+  display: grid;
+  aspect-ratio: 1;
+  border: 3px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+  touch-action: none;
+  user-select: none;
+}
+
+.cell {
+  position: relative;
+  border: 0 solid var(--line);
+  background: var(--c);
+  padding: 0;
+  border-radius: 0;
+  display: grid;
+  place-items: center;
+  box-shadow: inset 0 0 0 0.5px var(--thin), inset 1px 1px 0 var(--thin);
+}
+
+.cell.shaded::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--shade);
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+.blanket {
+  position: absolute;
+  inset: 20%;
+  border-radius: 3px;
+  background-color: #fff;
+  background-image: linear-gradient(90deg, rgba(211, 47, 47, 0.75) 50%, transparent 50%),
+    linear-gradient(rgba(211, 47, 47, 0.75) 50%, transparent 50%);
+  background-size: 8px 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+.cell.blanket-cell.shaded .blanket {
+  outline: 2px solid rgba(255, 255, 255, 0.7);
+}
+
+.mark {
+  width: 22%;
+  height: 22%;
+  pointer-events: none;
+  color: var(--ink);
+  opacity: 0.55;
+  z-index: 1;
+}
+
+.tree {
+  width: 78%;
+  height: 78%;
+  z-index: 1;
+  pointer-events: none;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35));
+}
+
+.tree .canopy {
+  fill: var(--tree);
+}
+
+.tree .trunk {
+  fill: var(--trunk);
+}
+
+.cell.bad .tree .canopy {
+  fill: var(--bad);
+}
+
+.sun {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  color: var(--sun);
+  pointer-events: none;
+}
+
+.sun.TL { top: -4px; left: -4px; }
+.sun.TR { top: -4px; right: -4px; transform: scaleX(-1); }
+.sun.BR { bottom: -4px; right: -4px; transform: scale(-1, -1); }
+.sun.BL { bottom: -4px; left: -4px; transform: scaleY(-1); }
+
+.status {
+  margin: 0;
+  min-height: 1.4em;
+  text-align: center;
+  color: var(--muted);
+}
+
+.status.solved {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+dialog {
+  background: var(--panel);
+  color: var(--ink);
+  border: 0;
+  border-radius: 16px;
+  padding: 20px 22px;
+  max-width: min(420px, calc(100vw - 32px));
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+dialog h2 {
+  margin-top: 0;
+}
+
+dialog ol {
+  padding-left: 1.2em;
+}
+
+dialog li {
+  margin-bottom: 8px;
+}
+
+.hint {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.win-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.win-actions form {
+  margin: 0;
+}
+
+[hidden] {
+  display: none !important;
+}

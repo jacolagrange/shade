@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#f6f1e7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#16181d" media="(prefers-color-scheme: dark)" />
+    <title>Shade</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='14' y='18' width='4' height='10' rx='1' fill='%23795548'/><circle cx='16' cy='13' r='10' fill='%232e7d32'/></svg>" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="top">
+        <div>
+          <h1>Shade</h1>
+          <p class="subtitle" id="subtitle"></p>
+        </div>
+        <div class="timer" id="timer">0:00</div>
+      </header>
+
+      <nav class="tabs" role="tablist">
+        <button role="tab" id="tab-daily" aria-selected="true">Daily</button>
+        <button role="tab" id="tab-practice" aria-selected="false">Practice</button>
+      </nav>
+
+      <div class="practice-bar" id="practice-bar" hidden>
+        <label>
+          Sun
+          <select id="practice-sun">
+            <option value="TL">Top-left</option>
+            <option value="TR">Top-right</option>
+            <option value="BR">Bottom-right</option>
+            <option value="BL">Bottom-left</option>
+            <option value="TL,TR">Two suns (top)</option>
+            <option value="BL,BR">Two suns (bottom)</option>
+          </select>
+        </label>
+        <label>
+          Size
+          <select id="practice-size">
+            <option>6</option>
+            <option selected>7</option>
+            <option>8</option>
+            <option>9</option>
+          </select>
+        </label>
+        <button id="practice-new" class="primary">New puzzle</button>
+      </div>
+
+      <section class="board-wrap" id="board-wrap">
+        <div class="board" id="board" role="grid" aria-label="Puzzle board"></div>
+      </section>
+
+      <p class="status" id="status" aria-live="polite"></p>
+
+      <div class="actions">
+        <button id="undo">Undo</button>
+        <button id="clear">Clear</button>
+        <button id="rules-btn">How to play</button>
+      </div>
+    </main>
+
+    <dialog id="rules">
+      <h2>How to play</h2>
+      <ol>
+        <li>Place exactly one <b>tree</b> in every row, every column and every colored region.</li>
+        <li>Each tree casts a diagonal <b>shadow</b> away from the sun. It runs through the rest of its own region, spills into the next region, and stops at that region's edge.</li>
+        <li>No tree may stand in another tree's shadow.</li>
+        <li>Every <b>picnic blanket</b> must end up in shade.</li>
+      </ol>
+      <p class="hint">Tap once to mark a cell as empty, twice for a tree. Drag to mark several cells. The sun moves every day, and weekends have two.</p>
+      <form method="dialog"><button class="primary">Got it</button></form>
+    </dialog>
+
+    <dialog id="win">
+      <h2>All in the shade</h2>
+      <p id="win-text"></p>
+      <div class="win-actions">
+        <button id="share" class="primary">Share</button>
+        <form method="dialog"><button>Close</button></form>
+      </div>
+    </dialog>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
